@@ -1,0 +1,26 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#progress-bar {
+  height: 10px; /* Can be anything */
+  position: relative;
+  background: #555;
+  border-radius: 3px;
+  padding: 4px;
+}
+
+#progress-bar-step {
+  display: block;
+  height: 100%;
+  width: 50%;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 3px;
+  background-color: rgb(43, 194, 83);
+}
+
+#form-step-two {
+  display: none;
+}
