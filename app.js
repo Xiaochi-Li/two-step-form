@@ -91,7 +91,7 @@ class FormValidator {
       phone: this.validatePhoneNumber(phone)
     }
 
-    isFormOneValid = this.isAllFieldValid(this.formValidationResults)
+    isFormOneValid = this.isAllFieldValid()
     this.formValues = { ...this.formValues, firstName, lastName, email, phone }
     this.isFormValid = isFormOneValid
   }
@@ -113,7 +113,7 @@ class FormValidator {
       postcode: this.validatepostcode(postcode)
     }
 
-    isFormTwoValid = this.isAllFieldValid(this.formValidationResults)
+    isFormTwoValid = this.isAllFieldValid()
     this.formValues = {
       ...this.formValues,
       streetNumber,
@@ -125,8 +125,9 @@ class FormValidator {
     this.isFormValid = isFormTwoValid
   }
 
-  isAllFieldValid = formResults => {
-    for (var key in formResults) {
+  isAllFieldValid = () => {
+    const formResults = this.formValidationResults
+    for (const key in formResults) {
       if (!formResults[key].isValid) {
         return false
       }
@@ -175,18 +176,29 @@ const handleSubmit = () => {
   event.preventDefault()
   validateStepTwo()
   if (FormValidate.isFormValid) {
-    alert(FormValidate.formValues)
+    displayReport()
   } else {
     displayErrorMessages()
   }
 }
 
+const displayReport = () => {
+  const formValues = FormValidate.formValues
+  document.getElementById('form-step-two').style.display = 'none'
+  document.getElementById('report').style.display = 'block'
+  for (const key in formValues) {
+    document.getElementById(`report-${key}`).nextElementSibling.textContent =
+      formValues[key]
+  }
+}
+
 const displayErrorMessages = () => {
-  for (var key in FormValidate.formValidationResults) {
-    const validationResult = FormValidate.formValidationResults[key]
-    if (!validationResult.isValid) {
+  const validateResults = FormValidate.formValidationResults
+  for (const key in validateResults) {
+    const result = validateResults[key]
+    if (!result.isValid) {
       document.getElementById(key).nextElementSibling.textContent =
-        validationResult.errorMessage
+        result.errorMessage
     } else {
       document.getElementById(key).nextElementSibling.textContent = ''
     }

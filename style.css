@@ -11,6 +11,10 @@ body {
   padding: 4px;
 }
 
+#report {
+  display: none;
+}
+
 #progress-bar-step {
   display: block;
   height: 100%;
@@ -27,4 +31,8 @@ body {
 
 .error-message {
   color: red;
+}
+
+.report-value {
+  color: green;
 }
