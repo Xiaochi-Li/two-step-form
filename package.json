@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Xiaochi <294188719@qq.com>",
   "license": "MIT",
+  "scripts": {
+    "open": "open ./index.html",
+    "test": "jest"
+  },
   "devDependencies": {
     "cypress": "^3.2.0",
     "jest": "^24.8.0"

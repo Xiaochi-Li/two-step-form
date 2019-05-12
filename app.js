@@ -15,7 +15,7 @@ class FormValidator {
     this.isFormValid = true
   }
 
-  validateReqiredInput = inputValue => {
+  validateReqiredInput (inputValue) {
     if (inputValue === '') {
       return { isValid: false, errorMessage: "this field can't be empty" }
     } else {
@@ -23,7 +23,7 @@ class FormValidator {
     }
   }
 
-  validateEmail = email => {
+  validateEmail (email) {
     const isEmailInputEmpty = this.validateReqiredInput(email)
     if (!isEmailInputEmpty.isValid) {
       return isEmailInputEmpty
@@ -36,7 +36,7 @@ class FormValidator {
     return { isValid: false, errorMessage: 'this email is invalid' }
   }
 
-  validatePhoneNumber = phone => {
+  validatePhoneNumber (phone) {
     if (
       !phone == '' &&
       !/^\+?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/.test(phone)
@@ -49,7 +49,7 @@ class FormValidator {
     return { isValid: true, errorMessage: undefined }
   }
 
-  validateStreetNumber = streetNumber => {
+  validateStreetNumber (streetNumber) {
     const isStreetNumberEmpty = this.validateReqiredInput(streetNumber)
     if (!isStreetNumberEmpty.isValid) {
       return isStreetNumberEmpty
@@ -65,67 +65,77 @@ class FormValidator {
     }
   }
 
-  validatepostcode = postcode => {
+  validatePostcode (postcode) {
     const ispostcodeEmpty = this.validateReqiredInput(postcode)
     if (!ispostcodeEmpty.isValid) {
       return ispostcodeEmpty
     }
 
-    if (/^[0-7][8-9][0-9][0-9]/.test(postcode)) {
-      return { isValid: true, errorMessage: undefined }
+    if (!/^[0-9]{4}$/.test(postcode)) {
+      return {
+        isValid: false,
+        errorMessage: 'this is not a valid postcode, postcode must be 4 digits'
+      }
     }
-    return {
-      isValid: false,
-      errorMessage:
-        'this is not a valid postcode, postcode must in the range of 0800-7999'
+
+    if (postcode < 800 || postcode > 7999) {
+      return {
+        isValid: false,
+        errorMessage:
+          'this is not a valid postcode, postcode must in the range of 0800-7999'
+      }
     }
+
+    return { isValid: true, errorMessage: undefined }
   }
 
-  validateFormOne = (firstName, lastName, email, phone) => {
+  validateFormOne (firstName, lastName, email, phone) {
     let isFormOneValid = true
-    this.formValidationResults = {
-      ...this.formValidationResults,
+
+    this.formValidationResults = Object.assign(this.formValidationResults, {
       firstName: this.validateReqiredInput(firstName),
       lastName: this.validateReqiredInput(lastName),
       email: this.validateEmail(email),
       phone: this.validatePhoneNumber(phone)
-    }
+    })
 
     isFormOneValid = this.isAllFieldValid()
-    this.formValues = { ...this.formValues, firstName, lastName, email, phone }
+    this.formValues = Object.assign(this.formValues, {
+      firstName,
+      lastName,
+      email,
+      phone
+    })
     this.isFormValid = isFormOneValid
   }
 
-  validateFormTwo = (
-    streetNumber,
-    streetName,
-    streetType,
-    suburb,
-    postcode
-  ) => {
+  validateFormTwo (streetNumber, streetName, streetType, suburb, postcode) {
     let isFormTwoValid = true
-    this.formValidationResults = {
-      ...this.formValidationResults,
+
+    const formTwoResults = {
       streetNumber: this.validateStreetNumber(streetNumber),
       streetName: this.validateReqiredInput(streetName),
       streetType: this.validateReqiredInput(streetType),
       suburb: this.validateReqiredInput(suburb),
-      postcode: this.validatepostcode(postcode)
+      postcode: this.validatePostcode(postcode)
     }
+    this.formValidationResults = Object.assign(
+      this.formValidationResults,
+      formTwoResults
+    )
 
     isFormTwoValid = this.isAllFieldValid()
-    this.formValues = {
-      ...this.formValues,
+    this.formValues = Object.assign(this.formValues, {
       streetNumber,
       streetName,
       streetType,
       suburb,
       postcode
-    }
+    })
     this.isFormValid = isFormTwoValid
   }
 
-  isAllFieldValid = () => {
+  isAllFieldValid () {
     const formResults = this.formValidationResults
     for (const key in formResults) {
       if (!formResults[key].isValid) {
@@ -210,3 +220,5 @@ const displayFormStepTwo = () => {
   document.getElementById('form-step-two').style.display = 'block'
   document.getElementById('progress-bar-step').style.width = '100%'
 }
+
+module.exports = FormValidator
