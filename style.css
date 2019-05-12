@@ -24,3 +24,7 @@ body {
 #form-step-two {
   display: none;
 }
+
+.error-message {
+  color: red;
+}

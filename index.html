@@ -3,6 +3,7 @@
   <head>
     <title>Two step form</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="./FormValidator.js"></script>
     <script src="./app.js"></script>
   </head>
   <body>
@@ -10,34 +11,44 @@
     <dev id="progress-bar">
       <dev id="progress-bar-step"></dev>
     </dev>
-    <form>
+    <form name="myform">
       <section id="form-step-one">
         <h4>First Name</h4>
-        <input />
+        <input id="firstName" />
+        <p class="error-message"></p>
         <h4>Second Name</h4>
-        <input />
+        <input id="lastName" />
+        <p class="error-message"></p>
         <h4>Email</h4>
-        <input />
-        <h4>Phone</h4>
-        <input />
+        <input id="email" />
+        <p class="error-message"></p>
+        <h4>Phone - optional - must in XXXX XXX XXX format</h4>
+        <input id="phone" />
+        <p class="error-message"></p>
       </section>
       <section id="form-step-two">
         <h4>Street Number</h4>
-        <input />
+        <input id="streetNumber" />
+        <p class="error-message"></p>
         <h4>Street Name</h4>
-        <input />
+        <input id="streetName" />
+        <p class="error-message"></p>
         <h4>Street Type</h4>
-        <select>
+        <select id="streetType">
           <option value="Cl">Cl</option>
           <option value="Ct">Ct</option>
           <option value="St">St</option>
           <option value="Pl">Pl</option>
           <option value="Ave">Ave</option>
         </select>
+        <p class="error-message"></p>
+        <h4>Suburb</h4>
+        <input id="suburb" />
+        <p class="error-message"></p>
         <h4>Post code</h4>
-        <input />
-        <h4>Post code</h4>
-        <input />
+        <input id="postCode" />
+        <p class="error-message"></p>
+        <button type="submit">Submit</button>
       </section>
     </form>
     <button onclick="handleClickOnNext()">next</button>
