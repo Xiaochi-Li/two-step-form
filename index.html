@@ -11,7 +11,7 @@
     <dev id="progress-bar">
       <dev id="progress-bar-step"></dev>
     </dev>
-    <form name="myform">
+    <form name="myform" onsubmit="handleSubmit()">
       <section id="form-step-one">
         <h4>First Name</h4>
         <input id="firstName" />
@@ -25,6 +25,7 @@
         <h4>Phone - optional - must in XXXX XXX XXX format</h4>
         <input id="phone" />
         <p class="error-message"></p>
+        <button onclick="handleClickOnNext()" type="button">next</button>
       </section>
       <section id="form-step-two">
         <h4>Street Number</h4>
@@ -46,11 +47,10 @@
         <input id="suburb" />
         <p class="error-message"></p>
         <h4>Post code</h4>
-        <input id="postCode" />
+        <input id="postcode" />
         <p class="error-message"></p>
         <button type="submit">Submit</button>
       </section>
     </form>
-    <button onclick="handleClickOnNext()">next</button>
   </body>
 </html>
